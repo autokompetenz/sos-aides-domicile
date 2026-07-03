@@ -100,7 +100,7 @@ export default function APropos() {
               >
                 <div style={{
                   width: 72, height: 72, borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #9B0B22, #C8102E)',
+                  background: 'linear-gradient(135deg, #0284C7, #0EA5E9)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   margin: '0 auto 16px',
                   fontSize: 24, color: '#fff', fontWeight: 800, fontFamily: F,

@@ -36,7 +36,7 @@ export default function App() {
           <MainLayout>
             <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: 'var(--black)' }}>
               <div>
-                <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: 120, fontWeight: 900, color: '#C8102E', lineHeight: 1, letterSpacing: '-0.05em' }}>404</p>
+                <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: 120, fontWeight: 900, color: '#0EA5E9', lineHeight: 1, letterSpacing: '-0.05em' }}>404</p>
                 <h1 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 32, fontWeight: 700, color: '#fff', marginBottom: 32 }}>Page introuvable</h1>
                 <a href="/" className="btn-primary" style={{ fontSize: 14, padding: '16px 40px' }}>← Accueil</a>
               </div>

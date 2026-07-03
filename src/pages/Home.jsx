@@ -183,12 +183,12 @@ export default function Home() {
           }} />
           <div style={{
             position: 'absolute', top: '20%', right: -80, width: 500, height: 500,
-            background: 'radial-gradient(circle, rgba(200,16,46,0.15) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(14,164,233,0.15) 0%, transparent 70%)',
             borderRadius: '50%',
           }} />
           <div style={{
             position: 'absolute', bottom: '10%', left: -60, width: 400, height: 400,
-            background: 'radial-gradient(circle, rgba(200,16,46,0.1) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(14,164,233,0.1) 0%, transparent 70%)',
             borderRadius: '50%',
           }} />
         </motion.div>
@@ -239,7 +239,7 @@ export default function Home() {
           >
             Des services à domicile<br />
             <span style={{
-              background: 'linear-gradient(135deg, #ff6b6b, #C8102E)',
+              background: 'linear-gradient(135deg, #7DD3FC, #0EA5E9)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}>
@@ -361,7 +361,7 @@ export default function Home() {
 
           {!isMobile ? (
             <div style={{ position: 'relative' }}>
-              <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: 2, background: 'linear-gradient(to bottom, rgba(200,16,46,0.08), rgba(200,16,46,0.4), rgba(200,16,46,0.08))', transform: 'translateX(-50%)', pointerEvents: 'none' }} />
+              <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: 2, background: 'linear-gradient(to bottom, rgba(14,164,233,0.08), rgba(14,164,233,0.4), rgba(14,164,233,0.08))', transform: 'translateX(-50%)', pointerEvents: 'none' }} />
               {STEPS.map((s, i) => {
                 const isLeft = i % 2 === 0;
                 return (
@@ -377,7 +377,7 @@ export default function Home() {
                       {isLeft ? <StepCard data={s} align="right" /> : <div />}
                     </div>
                     <div style={{ gridColumn: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', zIndex: 2 }}>
-                      <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg, #9B0B22, #C8102E)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, boxShadow: '0 0 0 6px var(--bg), 0 0 0 8px rgba(200,16,46,0.2)' }}>
+                      <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg, #0284C7, #0EA5E9)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, boxShadow: '0 0 0 6px var(--bg), 0 0 0 8px rgba(14,164,233,0.2)' }}>
                         {s.icon}
                       </div>
                     </div>
@@ -390,7 +390,7 @@ export default function Home() {
             </div>
           ) : (
             <div style={{ position: 'relative', paddingLeft: 44 }}>
-              <div style={{ position: 'absolute', left: 16, top: 8, bottom: 8, width: 2, background: 'linear-gradient(to bottom, rgba(200,16,46,0.08), rgba(200,16,46,0.4), rgba(200,16,46,0.08))' }} />
+              <div style={{ position: 'absolute', left: 16, top: 8, bottom: 8, width: 2, background: 'linear-gradient(to bottom, rgba(14,164,233,0.08), rgba(14,164,233,0.4), rgba(14,164,233,0.08))' }} />
               {STEPS.map((s, i) => (
                 <motion.div
                   key={i}
@@ -403,10 +403,10 @@ export default function Home() {
                   <div style={{
                     position: 'absolute', left: -34, top: 14,
                     width: 32, height: 32, borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #9B0B22, #C8102E)',
+                    background: 'linear-gradient(135deg, #0284C7, #0EA5E9)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: 14,
-                    boxShadow: '0 0 0 4px var(--bg), 0 0 0 6px rgba(200,16,46,0.15)',
+                    boxShadow: '0 0 0 4px var(--bg), 0 0 0 6px rgba(14,164,233,0.15)',
                     zIndex: 2,
                   }}>
                     {s.icon}
@@ -473,10 +473,10 @@ export default function Home() {
                   transition={{ duration: 0.4, delay: i * 0.06 }}
                   style={{
                     background: 'var(--bg-card)',
-                    border: `1px solid ${isOpen ? 'rgba(200,16,46,0.35)' : 'var(--border)'}`,
+                    border: `1px solid ${isOpen ? 'rgba(14,164,233,0.35)' : 'var(--border)'}`,
                     borderRadius: 14,
                     overflow: 'hidden',
-                    boxShadow: isOpen ? '0 4px 24px rgba(200,16,46,0.08)' : 'var(--shadow-sm)',
+                    boxShadow: isOpen ? '0 4px 24px rgba(14,164,233,0.08)' : 'var(--shadow-sm)',
                     transition: 'border-color 0.3s, box-shadow 0.3s',
                   }}
                 >
@@ -521,7 +521,7 @@ export default function Home() {
       <section style={{ background: 'linear-gradient(135deg, #0a0a0b, #1a1a1e)', position: 'relative', overflow: 'hidden' }} className="section-pad">
         <div style={{
           position: 'absolute', top: '30%', right: -100, width: 400, height: 400,
-          background: 'radial-gradient(circle, rgba(200,16,46,0.1) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(14,164,233,0.1) 0%, transparent 70%)',
           borderRadius: '50%',
         }} />
         <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', maxWidth: 700, margin: '0 auto' }}>
