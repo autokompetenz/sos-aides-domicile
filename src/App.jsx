@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -9,6 +10,29 @@ import ServiceDetail from './pages/ServiceDetail';
 import APropos       from './pages/APropos';
 import Contact       from './pages/Contact';
 import Legal         from './pages/Legal';
+
+function ScrollTop() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 400);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  if (!show) return null;
+  return (
+    <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} style={{
+      position: 'fixed', bottom: 28, right: 28, zIndex: 999,
+      width: 44, height: 44, borderRadius: '50%', border: 'none', cursor: 'pointer',
+      background: 'var(--red)', color: '#fff', fontSize: 18,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      boxShadow: '0 4px 20px rgba(14,164,233,0.35)',
+      transition: 'all 0.25s',
+    }}
+      onMouseEnter={e => { e.target.style.transform = 'translateY(-3px)'; e.target.style.boxShadow = '0 8px 28px rgba(14,164,233,0.5)' }}
+      onMouseLeave={e => { e.target.style.transform = ''; e.target.style.boxShadow = '0 4px 20px rgba(14,164,233,0.35)' }}
+    >↑</button>
+  );
+}
 
 export default function App() {
   function MainLayout({ children }) {
@@ -24,6 +48,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Toast />
+      <ScrollTop />
       <Routes>
         <Route path="/" element={<MainLayout><Home /></MainLayout>} />
         <Route path="/services" element={<MainLayout><Services /></MainLayout>} />

@@ -121,6 +121,7 @@ export default function Services() {
                     cursor: 'pointer',
                     transition: 'border-color 0.2s, transform 0.2s',
                     height: '100%',
+                    textAlign: 'center',
                   }}
                   onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--red)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
                   onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'none'; }}

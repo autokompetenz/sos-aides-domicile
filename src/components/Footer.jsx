@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 const F = "'Outfit',sans-serif";
 
 export default function Footer() {
-  const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
   return (
     <footer style={{
       background: 'var(--bg-card2)',
@@ -92,15 +90,6 @@ export default function Footer() {
           <p style={{ fontSize: 12, color: 'var(--text-3)' }}>
             © {new Date().getFullYear()} SOS Aides à Domicile — SIREN 539 339 960 — RNA W332012993
           </p>
-          <button onClick={scrollTop} style={{
-            background: 'var(--red)', color: '#fff', border: 'none', cursor: 'pointer',
-            width: 36, height: 36, borderRadius: '50%', fontSize: 16, display: 'flex',
-            alignItems: 'center', justifyContent: 'center',
-            transition: 'all 0.25s',
-          }}
-            onMouseEnter={e => { e.target.style.transform = 'translateY(-3px)'; e.target.style.boxShadow = '0 4px 16px rgba(14,164,233,0.4)' }}
-            onMouseLeave={e => { e.target.style.transform = ''; e.target.style.boxShadow = '' }}
-          >↑</button>
         </div>
       </div>
     </footer>

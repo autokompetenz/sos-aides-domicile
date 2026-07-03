@@ -111,6 +111,7 @@ export default function Contact() {
                 borderRadius: 14,
                 padding: '20px 24px',
                 boxShadow: 'var(--shadow-sm)',
+                textAlign: 'center',
               }}>
                 <p style={{ fontSize: 24, marginBottom: 8 }}>{item.icon}</p>
                 <h3 style={{ fontFamily: F, fontWeight: 800, fontSize: 14, color: 'var(--text)', marginBottom: 4 }}>{item.title}</h3>
