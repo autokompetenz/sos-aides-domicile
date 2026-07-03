@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useBreakpoint } from '../hooks/useBreakpoint';
+import GoogleReviewsCarousel from '../components/GoogleReviewsCarousel';
 
 const F = "'Outfit',sans-serif";
 
@@ -121,16 +122,6 @@ const FAQS = [
     a: 'Nous intervenons principalement sur Talence et les communes alentour : Bordeaux, Pessac, Gradignan, Mérignac, Villenave-d\'Ornon, Bègles. Contactez-nous pour vérifier notre présence dans votre secteur.',
   },
 ];
-
-const REVIEWS = [
-  { name: 'Marie L.', text: 'Une équipe formidable, à l\'écoute et très professionnelle. Ma mère est suivie depuis 6 mois et nous sommes ravis.', rating: 5, role: 'Famille' },
-  { name: 'Jean-Pierre D.', text: 'Grâce à SOS Aides à Domicile, je peux rester chez moi en toute sécurité. Mes intervenantes sont adorables et compétentes.', rating: 5, role: 'Senior' },
-  { name: 'Sophie M.', text: 'Un accompagnement précieux pour notre fils en situation de handicap. Les intervenantes sont patients et bien formés.', rating: 5, role: 'Famille' },
-];
-
-function Stars({ n = 5 }) {
-  return <span style={{ display: 'inline-flex', gap: 2 }}>{Array.from({ length: 5 }).map((_, i) => <span key={i} style={{ color: i < n ? '#FFAA00' : 'var(--border-2)', fontSize: 15 }}>★</span>)}</span>;
-}
 
 function CookieBanner() {
   const [visible, setVisible] = useState(!localStorage.getItem('sos_cookies'));
@@ -459,42 +450,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── REVIEWS ───────────────────────────────────────────────────────── */}
-      <section style={{ background: 'var(--bg-card2)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }} className="section-pad">
-        <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: isMobile ? 32 : 48 }}>
-            <div className="section-eyebrow" style={{ justifyContent: 'center' }}>Témoignages</div>
-            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(24px,4vw,50px)', color: 'var(--text)', letterSpacing: '-0.02em' }}>
-              Ce que disent nos clients
-            </h2>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 16 : 24 }}>
-            {REVIEWS.map((r, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                style={{
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border)',
-                  borderRadius: 14,
-                  padding: isMobile ? '20px' : '28px',
-                  boxShadow: 'var(--shadow-sm)',
-                }}
-              >
-                <Stars n={r.rating} />
-                <p style={{ fontSize: isMobile ? 13 : 14, color: 'var(--text-2)', lineHeight: 1.7, margin: '12px 0 14px', fontStyle: 'italic' }}>"{r.text}"</p>
-                <div>
-                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 14, color: 'var(--text)' }}>{r.name}</p>
-                  <p style={{ fontSize: 12, color: 'var(--text-3)' }}>{r.role}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <GoogleReviewsCarousel />
 
       {/* ── FAQ ───────────────────────────────────────────────────────────── */}
       <section style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }} className="section-pad">
