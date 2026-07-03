@@ -1,16 +1,65 @@
-# React + Vite
+# Auto Kompetenz GmbH — autokompetenz.vercel.app
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Structure (monorepo unifié pour Vercel)
+```
+autokompetenz/
+├── api/              ← Serverless functions (backend)
+│   ├── auth/         ← login, register, me
+│   ├── cars/         ← index, [id], categories
+│   ├── cart/         ← index, count, [carId]
+│   ├── orders/       ← index, my, [id], track/[orderNumber]
+│   ├── simulation/   ← index
+│   ├── admin/        ← stats, clients
+│   └── user/         ← profile, password
+├── lib/              ← Shared: prisma.js, middleware.js, helpers.js
+├── prisma/           ← schema.prisma, seed.js
+├── src/              ← React frontend
+│   ├── components/   ← Navbar, CarCard, Toast, Chatbot, UI, AdminSidebar
+│   ├── pages/        ← Home, Catalog, CarDetails, Cart, Track...
+│   │   └── admin/    ← AdminDashboard, AdminOrders...
+│   ├── store/        ← Zustand (auth, cart, toast, lang)
+│   ├── services/     ← api.js (axios)
+│   └── utils/        ← helpers.js, i18n.js
+├── vercel.json       ← Routes + CORS headers
+├── package.json      ← Unified dependencies
+└── supabase-schema.sql ← Run in Supabase SQL Editor
+```
 
-Currently, two official plugins are available:
+## Déploiement sur Vercel
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 1. Supabase
+1. [supabase.com](https://supabase.com) → New project → Frankfurt
+2. SQL Editor → coller `supabase-schema.sql` → Run
+3. Settings → Database → copier `DATABASE_URL` et `DIRECT_URL`
 
-## React Compiler
+### 2. GitHub
+```bash
+git init && git add . && git commit -m "🚀 Auto Kompetenz GmbH"
+git remote add origin https://github.com/VOTRE_USER/autokompetenz.git
+git push -u origin main
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 3. Vercel
+1. [vercel.com](https://vercel.com) → Import GitHub repo
+2. **Root Directory : laisser vide** (à la racine)
+3. Framework: **Vite**
+4. Environment Variables → ajouter :
 
-## Expanding the Oxlint configuration
+| Variable | Valeur |
+|---|---|
+| `DATABASE_URL` | postgresql://postgres.XXX:PWD@pooler.supabase.com:6543/postgres?pgbouncer=true |
+| `DIRECT_URL` | postgresql://postgres.XXX:PWD@pooler.supabase.com:5432/postgres |
+| `JWT_SECRET` | (chaîne aléatoire 64+ caractères) |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+5. Deploy → ✅ https://autokompetenz.vercel.app
+
+### 4. Seeder (une seule fois)
+Dans Supabase → SQL Editor, exécuter le seed manuellement, ou:
+```bash
+# Depuis votre machine avec .env configuré
+npm run seed
+```
+
+## Comptes demo
+- Admin : autoKompetenz@gmail.com / password
+- Client : client@autokompetenz.com / password

@@ -1,167 +1,586 @@
-function Home() {
-  return (
-    <>
-      <div className="banner_section layout_padding">
-        <div className="container">
-          <div id="costum_slider" className="carousel slide" data-ride="carousel">
-            <div className="carousel-inner">
-              <div className="carousel-item active">
-                <h1 className="furniture_text">SOS AIDES À DOMICILE</h1>
-                <p className="there_text">Des services de proximité pour le bien-être de tous, à chaque étape de la vie.</p>
-                <div className="contact_bt_main">
-                  <div className="contact_bt"><a href="/contact">Contactez-nous</a></div>
-                </div>
-              </div>
-              <div className="carousel-item">
-                <h1 className="furniture_text">AIDE AUX SENIORS</h1>
-                <p className="there_text">Accompagnement et soins à domicile pour le maintien de l'autonomie des personnes âgées.</p>
-                <div className="contact_bt_main">
-                  <div className="contact_bt"><a href="/contact">Contactez-nous</a></div>
-                </div>
-              </div>
-              <div className="carousel-item">
-                <h1 className="furniture_text">SOUTIEN AUX FAMILLES</h1>
-                <p className="there_text">Des solutions adaptées pour accompagner les familles et leurs enfants au quotidien.</p>
-                <div className="contact_bt_main">
-                  <div className="contact_bt"><a href="/contact">Contactez-nous</a></div>
-                </div>
-              </div>
-            </div>
-            <a className="carousel-control-prev" href="#costum_slider" role="button" data-slide="prev">
-              <i><img src="/images/left-arrow.png" alt="prev" /></i>
-            </a>
-            <a className="carousel-control-next" href="#costum_slider" role="button" data-slide="next">
-              <i><img src="/images/right-arrow.png" alt="next" /></i>
-            </a>
-          </div>
-        </div>
-      </div>
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useBreakpoint } from '../hooks/useBreakpoint';
 
-      <div className="services_section layout_padding">
-        <div className="container">
-          <h1 className="services_taital">Nos services</h1>
-          <p className="many_taital">Des prestations adaptées à vos besoins, dispensées par une équipe qualifiée</p>
-          <div className="services_section2 layout_padding">
-            <div className="row">
-              {[
-                { img: 'icon-1.svg', title: 'Aide aux seniors', desc: 'Maintien à domicile, accompagnement, soins et assistance pour nos aînés.' },
-                { img: 'icon-2.svg', title: 'Aide aux familles', desc: 'Soutien à la parentalité, garde d\'enfants et accompagnement éducatif.' },
-                { img: 'icon-3.svg', title: 'Personnes handicapées', desc: 'Accompagnement personnalisé pour favoriser l\'autonomie et l\'inclusion.' },
-                { img: 'icon-4.svg', title: 'Services de proximité', desc: 'Courses, petits travaux, accompagnement aux rendez-vous et sorties.' },
-              ].map((item, i) => (
-                <div className="col-lg-3 col-sm-6" key={i}>
-                  <div className="icon_1"><img src={`/images/${item.img}`} alt={item.title} /></div>
-                  <h2 className="furnitures_text">{item.title}</h2>
-                  <p className="dummy_text">{item.desc}</p>
-                  <div className="read_bt_main">
-                    <div className="read_bt"><a href="/services">En savoir +</a></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+const F = "'Outfit',sans-serif";
 
-      <div className="about_section layout_padding">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6">
-              <h1 className="about_text">Qui sommes-nous ?</h1>
-              <p className="lorem_text">
-                SOS Aides à Domicile est une association déclarée (RNA W332012993) créée le 2 novembre 2011. Notre objet social est de proposer des services à domicile ou de proximité, favorisant ainsi le bien-être physique et/ou moral des personnes âgées, des personnes handicapées, des personnes dépendantes ou non, des enfants et des familles.<br /><br />
-                Basée à Talence (33400), notre équipe intervient sur tout le secteur avec professionnalisme et bienveillance.
-              </p>
-              <div className="read_bt1"><a href="/about">En savoir +</a></div>
-            </div>
-            <div className="col-md-6">
-              <div className="image_1"><img src="/images/img-1.svg" alt="SOS Aides à Domicile" /></div>
-            </div>
-          </div>
-        </div>
-      </div>
+const SERVICES = [
+  {
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+      </svg>
+    ),
+    title: 'Aide aux seniors',
+    desc: 'Accompagnement quotidien des personnes âgées : aide à la toilette, habillage, préparation des repas, courses, accompagnement aux rendez-vous médicaux.',
+  },
+  {
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+      </svg>
+    ),
+    title: 'Aide aux familles',
+    desc: 'Soutien aux familles avec enfants : garde d\'enfants, aide aux devoirs, accompagnement périscolaire, soutien à la parentalité.',
+  },
+  {
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    ),
+    title: 'Aide aux personnes handicapées',
+    desc: 'Accompagnement personnalisé pour les personnes en situation de handicap : aide aux gestes de la vie quotidienne, mobilité, inclusion sociale.',
+  },
+  {
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+      </svg>
+    ),
+    title: 'Aide administrative',
+    desc: 'Assistance dans les démarches administratives : constitution de dossiers APA, aide au remplissage de formulaires, accompagnement CAF, CPAM.',
+  },
+  {
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    ),
+    title: 'Accompagnement social',
+    desc: 'Soutien et lien social : visites de convivialité, accompagnement aux activités culturelles, aide à la mobilité, lutte contre l\'isolement.',
+  },
+  {
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+      </svg>
+    ),
+    title: 'Entretien du cadre de vie',
+    desc: 'Aide aux tâches ménagères, entretien du linge, petits travaux, maintien d\'un environnement propre et sécurisé à domicile.',
+  },
+];
 
-      <div className="who_section layout_padding">
-        <div className="container">
-          <h1 className="who_taital">Notre engagement</h1>
-          <h4 className="designer_text">BIEN-ÊTRE & PROXIMITÉ</h4>
-          <p className="lorem_ipsum_text">
-            Nous croyons que chacun mérite de vivre dignement chez soi, entouré de soins et d'attention. Notre équipe intervient avec respect, discrétion et professionnalisme pour accompagner les personnes dans leur quotidien. Que ce soit pour un soutien ponctuel ou un accompagnement régulier, nous sommes à vos côtés.
-          </p>
-        </div>
-        <div className="get_bt_main">
-          <div className="get_bt"><a href="/contact">Demander un devis</a></div>
-        </div>
-      </div>
+const STEPS = [
+  {
+    icon: '📞',
+    step: '01',
+    title: 'Premier contact',
+    desc: 'Appelez-nous ou remplissez notre formulaire en ligne. Nous vous rappelons sous 24h pour comprendre vos besoins et vous orienter vers le service adapté.',
+  },
+  {
+    icon: '📋',
+    step: '02',
+    title: 'Évaluation des besoins',
+    desc: 'Une intervenante se déplace à votre domicile pour évaluer vos besoins, définir les tâches et établir un planning personnalisé.',
+  },
+  {
+    icon: '📄',
+    step: '03',
+    title: 'Devis & convention',
+    desc: 'Nous vous remettons un devis détaillé et une convention de service. Transparence totale sur les tarifs, les horaires et les modalités.',
+  },
+  {
+    icon: '🤝',
+    step: '04',
+    title: 'Mise en relation',
+    desc: 'Nous sélectionnons l\'intervenante la plus adaptée à votre profil et organisons une première rencontre à votre domicile.',
+  },
+  {
+    icon: '❤️',
+    step: '05',
+    title: 'Suivi personnalisé',
+    desc: 'Un suivi régulier est assuré par notre coordinatrice. Nous restons à votre écoute pour ajuster les interventions selon l\'évolution de vos besoins.',
+  },
+];
 
-      <div className="clients_section layout_padding">
-        <div className="container">
-          <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-            <ol className="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-            </ol>
-            <div className="carousel-inner">
-              <div className="carousel-item active">
-                <h1 className="client_text">Témoignages</h1>
-                <p className="ipsum_text">Ce que disent nos bénéficiaires</p>
-                <div className="clients_section2 layout_padding">
-                  <div className="client_1">
-                    <div className="row">
-                      <div className="col-sm-3">
-                        <div className="image_7"><img src="/images/img-7.svg" alt="Marie" /></div>
-                      </div>
-                      <div className="col-sm-9">
-                        <h1 className="loksans_text">Marie L.</h1>
-                        <p className="dolor_ipsum_text">Grâce à SOS Aides à Domicile, j'ai pu rester chez moi en toute sérénité. Leur équipe est formidable, à l'écoute et très professionnelle.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="client_2">
-                    <div className="row">
-                      <div className="col-sm-3">
-                        <div className="image_7"><img src="/images/img-8.svg" alt="Jean" /></div>
-                      </div>
-                      <div className="col-sm-9">
-                        <h1 className="loksans_text">Jean-Pierre D.</h1>
-                        <p className="dolor_ipsum_text">Un accompagnement précieux au quotidien. Je recommande vivement leurs services à toutes les familles qui cherchent une aide fiable.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+const FAQS = [
+  {
+    q: 'Comment bénéficier de vos services ?',
+    a: 'Contactez-nous par téléphone ou via notre formulaire en ligne. Nous vous rappelons sous 24h pour convenir d\'un rendez-vous d\'évaluation à votre domicile, sans engagement.',
+  },
+  {
+    q: 'Quels sont vos tarifs ?',
+    a: 'Nos tarifs varient selon les services et la durée d\'intervention. Nous établissons un devis personnalisé après évaluation de vos besoins. La plupart de nos services sont éligibles au crédit d\'impôt de 50% (CESU préfinancé, APA, PCH).',
+  },
+  {
+    q: 'Qu\'est-ce que le crédit d\'impôt de 50% ?',
+    a: 'Les services à domicile ouvrent droit à un crédit d\'impôt de 50% du montant des dépenses engagées. Par exemple, pour une facture de 100€, il ne vous en coûte que 50€ après impôt. Nous vous fournissons les documents nécessaires à la déclaration.',
+  },
+  {
+    q: 'Puis-je bénéficier de l\'APA ou de la PCH ?',
+    a: 'Oui, l\'Allocation Personnalisée d\'Autonomie (APA) et la Prestation de Compensation du Handicap (PCH) peuvent financer tout ou partie de nos interventions. Nous vous accompagnons dans vos démarches administratives.',
+  },
+  {
+    q: 'Vos intervenantes sont-elles qualifiées ?',
+    a: 'Oui, toutes nos intervenantes sont diplômées, formées et expérimentées. Elles bénéficient d\'une formation continue et sont régulièrement évaluées. Nous les sélectionnons rigoureusement pour garantir un service de qualité.',
+  },
+  {
+    q: 'Quels secteurs couvrez-vous ?',
+    a: 'Nous intervenons principalement sur Talence et les communes alentour : Bordeaux, Pessac, Gradignan, Mérignac, Villenave-d\'Ornon, Bègles. Contactez-nous pour vérifier notre présence dans votre secteur.',
+  },
+];
 
-      <div className="contact_section layout_padding">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6">
-              <h1 className="contact_text">CONTACTEZ-NOUS</h1>
-              <div className="mail_sectin">
-                <input type="text" className="email-bt" placeholder="Nom" name="Name" />
-                <input type="text" className="email-bt" placeholder="Email" name="Email" />
-                <input type="text" className="email-bt" placeholder="Téléphone" name="Phone" />
-                <textarea className="massage-bt" placeholder="Message" rows="5" id="comment" name="Message"></textarea>
-                <div className="send_bt"><a href="#">ENVOYER</a></div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="map_main">
-                <div className="map-responsive">
-                  <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=13+Avenue+Georges+Lasserre+33400+Talence+France" width="600" height="500" frameBorder="0" style={{ border: 0, width: '100%' }} allowFullScreen></iframe>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  )
+const REVIEWS = [
+  { name: 'Marie L.', text: 'Une équipe formidable, à l\'écoute et très professionnelle. Ma mère est suivie depuis 6 mois et nous sommes ravis.', rating: 5, role: 'Famille' },
+  { name: 'Jean-Pierre D.', text: 'Grâce à SOS Aides à Domicile, je peux rester chez moi en toute sécurité. Mes intervenantes sont adorables et compétentes.', rating: 5, role: 'Senior' },
+  { name: 'Sophie M.', text: 'Un accompagnement précieux pour notre fils en situation de handicap. Les intervenantes sont patients et bien formés.', rating: 5, role: 'Famille' },
+];
+
+function Stars({ n = 5 }) {
+  return <span style={{ display: 'inline-flex', gap: 2 }}>{Array.from({ length: 5 }).map((_, i) => <span key={i} style={{ color: i < n ? '#FFAA00' : 'var(--border-2)', fontSize: 15 }}>★</span>)}</span>;
 }
 
-export default Home
+function CookieBanner() {
+  const [visible, setVisible] = useState(!localStorage.getItem('sos_cookies'));
+  if (!visible) return null;
+  const accept = () => { localStorage.setItem('sos_cookies', '1'); setVisible(false); };
+  const decline = () => { localStorage.setItem('sos_cookies', '0'); setVisible(false); };
+  return (
+    <div className="cookie-banner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap' }}>
+      <p style={{ fontSize: 14, color: 'var(--text-2)', flex: 1 }}>🍪 Nous utilisons des cookies pour améliorer votre expérience.</p>
+      <div style={{ display: 'flex', gap: 10 }}>
+        <button onClick={decline} style={{ padding: '9px 18px', background: 'var(--bg-card2)', border: '1px solid var(--border)', borderRadius: 6, color: 'var(--text-3)', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: F }}>Refuser</button>
+        <button onClick={accept} className="btn-gold" style={{ fontSize: 13, padding: '9px 20px' }}>Accepter</button>
+      </div>
+    </div>
+  );
+}
+
+export default function Home() {
+  const { isMobile } = useBreakpoint();
+  const [openIndex, setOpenIndex] = useState(null);
+  const { scrollYProgress } = useScroll();
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.95]);
+
+  useEffect(() => {
+    const el = document.querySelector('.cookie-banner');
+    if (el) {
+      const orig = el.style.display;
+      if (window.innerWidth < 768) el.style.display = 'block';
+      return () => { if (el) el.style.display = orig; };
+    }
+  }, []);
+
+  return (
+    <>
+      {/* ── HERO ──────────────────────────────────────────────────────────── */}
+      <motion.section style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #0a0a0b 0%, #1a1a1e 100%)',
+        position: 'relative',
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <motion.div style={{ opacity: heroOpacity, scale: heroScale, position: 'absolute', inset: 0 }}>
+          <div style={{
+            position: 'absolute', top: '20%', right: -80, width: 500, height: 500,
+            background: 'radial-gradient(circle, rgba(200,16,46,0.15) 0%, transparent 70%)',
+            borderRadius: '50%',
+          }} />
+          <div style={{
+            position: 'absolute', bottom: '10%', left: -60, width: 400, height: 400,
+            background: 'radial-gradient(circle, rgba(200,16,46,0.1) 0%, transparent 70%)',
+            borderRadius: '50%',
+          }} />
+        </motion.div>
+
+        <div style={{
+          position: 'relative', zIndex: 2,
+          textAlign: 'center',
+          maxWidth: 820,
+          padding: isMobile ? '0 6%' : '0 5%',
+        }}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              background: 'rgba(255,255,255,0.06)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: 100,
+              padding: '6px 16px 6px 6px',
+              marginBottom: 28,
+            }}>
+              <span style={{
+                background: 'var(--red)',
+                color: '#fff', fontSize: 10, fontWeight: 800,
+                letterSpacing: '0.1em', textTransform: 'uppercase',
+                padding: '4px 12px', borderRadius: 100,
+              }}>
+                Association agréée
+              </span>
+              <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>Services à la personne</span>
+            </div>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            style={{
+              fontFamily: F, fontWeight: 900,
+              fontSize: isMobile ? 'clamp(36px, 10vw, 52px)' : 'clamp(48px, 5.5vw, 76px)',
+              color: '#fff',
+              lineHeight: 1.05,
+              letterSpacing: '-0.03em',
+              marginBottom: 20,
+            }}
+          >
+            Des services à domicile<br />
+            <span style={{
+              background: 'linear-gradient(135deg, #ff6b6b, #C8102E)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>
+              avec cœur et professionnalisme
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            style={{
+              fontSize: isMobile ? 17 : 20,
+              color: 'rgba(255,255,255,0.65)',
+              lineHeight: 1.6,
+              maxWidth: 600,
+              margin: '0 auto 36px',
+              fontFamily: F,
+            }}
+          >
+            SOS Aides à Domicile accompagne les seniors, les familles et les personnes handicapées
+            à Talence et ses alentours. Bien vieillir chez soi, c'est possible.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}
+          >
+            <a href="tel:+33556781234" className="btn-primary" style={{ fontSize: 14, padding: '16px 36px' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: 8, verticalAlign: 'middle' }}>
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              05 56 78 12 34
+            </a>
+            <a href="/contact" className="btn-secondary" style={{ fontSize: 14, padding: '16px 36px' }}>
+              Demander un devis
+            </a>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* ── SERVICES ──────────────────────────────────────────────────────── */}
+      <section style={{ background: 'var(--bg-card2)', borderTop: '1px solid var(--border)' }} className="section-pad">
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <div className="section-eyebrow" style={{ justifyContent: 'center' }}>Nos Services</div>
+            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(28px,4vw,52px)', color: 'var(--text)', letterSpacing: '-0.02em' }}>
+              Un accompagnement sur mesure
+            </h2>
+            <p style={{ fontSize: 16, color: 'var(--text-3)', marginTop: 12, maxWidth: 560, margin: '12px auto 0' }}>
+              Du soutien quotidien aux soins spécialisés, nous nous adaptons à vos besoins.
+            </p>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+            gap: 24,
+          }}>
+            {SERVICES.map((s, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 14,
+                  padding: '32px 28px',
+                  boxShadow: 'var(--shadow-sm)',
+                }}
+              >
+                <div style={{
+                  width: 52, height: 52, borderRadius: 12,
+                  background: 'var(--red-bg)',
+                  border: '1px solid var(--red-border)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'var(--red)',
+                  marginBottom: 18,
+                }}>
+                  {s.icon}
+                </div>
+                <h3 style={{ fontFamily: F, fontWeight: 800, fontSize: 17, color: 'var(--text)', marginBottom: 10 }}>
+                  {s.title}
+                </h3>
+                <p style={{ fontSize: 14, color: 'var(--text-3)', lineHeight: 1.7 }}>
+                  {s.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── STEPS — Comment ça marche ─────────────────────────────────────── */}
+      <section style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }} className="section-pad">
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <div className="section-eyebrow" style={{ justifyContent: 'center' }}>Comment ça marche</div>
+            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(28px,4vw,52px)', color: 'var(--text)', letterSpacing: '-0.02em', whiteSpace: 'pre-line' }}>
+              De la demande au suivi
+            </h2>
+            <p style={{ fontSize: 16, color: 'var(--text-3)', marginTop: 12, maxWidth: 560, margin: '12px auto 0' }}>
+              Un processus simple et transparent, du premier contact jusqu'au suivi personnalisé.
+            </p>
+          </div>
+
+          {!isMobile ? (
+            <div style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: 2, background: 'linear-gradient(to bottom, rgba(200,16,46,0.08), rgba(200,16,46,0.4), rgba(200,16,46,0.08))', transform: 'translateX(-50%)', pointerEvents: 'none' }} />
+              {STEPS.map((s, i) => {
+                const isLeft = i % 2 === 0;
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.1 }}
+                    style={{ display: 'grid', gridTemplateColumns: '1fr 80px 1fr', gap: 0, alignItems: 'center', marginBottom: i < STEPS.length - 1 ? 40 : 0 }}
+                  >
+                    <div style={{ gridColumn: 1, display: 'flex', justifyContent: 'flex-end', paddingRight: 40 }}>
+                      {isLeft ? <StepCard data={s} align="right" /> : <div />}
+                    </div>
+                    <div style={{ gridColumn: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', zIndex: 2 }}>
+                      <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg, #9B0B22, #C8102E)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, boxShadow: '0 0 0 6px var(--bg), 0 0 0 8px rgba(200,16,46,0.2)' }}>
+                        {s.icon}
+                      </div>
+                    </div>
+                    <div style={{ gridColumn: 3, paddingLeft: 40 }}>
+                      {!isLeft ? <StepCard data={s} align="left" /> : <div />}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          ) : (
+            <div style={{ position: 'relative', paddingLeft: 52 }}>
+              <div style={{ position: 'absolute', left: 20, top: 8, bottom: 8, width: 2, background: 'linear-gradient(to bottom, rgba(200,16,46,0.08), rgba(200,16,46,0.4), rgba(200,16,46,0.08))' }} />
+              {STEPS.map((s, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  style={{ position: 'relative', marginBottom: i < STEPS.length - 1 ? 28 : 0 }}
+                >
+                  <div style={{ position: 'absolute', left: -42, top: 16, width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #9B0B22, #C8102E)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, boxShadow: '0 0 0 4px var(--bg), 0 0 0 6px rgba(200,16,46,0.15)', zIndex: 2 }}>
+                    {s.icon}
+                  </div>
+                  <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 12, padding: '18px 20px', boxShadow: 'var(--shadow-sm)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                      <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.25em', color: 'var(--red)', background: 'var(--red-bg)', border: '1px solid var(--red-border)', padding: '2px 8px', borderRadius: 3 }}>
+                        {s.step}
+                      </span>
+                      <h3 style={{ fontFamily: F, fontWeight: 800, fontSize: 15, color: 'var(--text)' }}>{s.title}</h3>
+                    </div>
+                    <p style={{ fontSize: 13, color: 'var(--text-3)', lineHeight: 1.65 }}>{s.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── STATS ─────────────────────────────────────────────────────────── */}
+      <section style={{ background: 'linear-gradient(135deg, #0a0a0b, #1a1a1e)', padding: '80px 5%' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)', gap: 32, textAlign: 'center' }}>
+          {[
+            { n: '15+', l: "Années d'expérience" },
+            { n: '500+', l: 'Familles accompagnées' },
+            { n: '50+', l: 'Intervenantes qualifiées' },
+            { n: '4.9', l: 'Note moyenne ★' },
+          ].map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+            >
+              <p style={{ fontFamily: F, fontSize: 42, fontWeight: 900, color: '#fff', marginBottom: 6 }}>{s.n}</p>
+              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>{s.l}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── REVIEWS ───────────────────────────────────────────────────────── */}
+      <section style={{ background: 'var(--bg-card2)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }} className="section-pad">
+        <div style={{ maxWidth: 1000, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+            <div className="section-eyebrow" style={{ justifyContent: 'center' }}>Témoignages</div>
+            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(26px,4vw,50px)', color: 'var(--text)', letterSpacing: '-0.02em' }}>
+              Ce que disent nos clients
+            </h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 24 }}>
+            {REVIEWS.map((r, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 14,
+                  padding: '28px',
+                  boxShadow: 'var(--shadow-sm)',
+                }}
+              >
+                <Stars n={r.rating} />
+                <p style={{ fontSize: 14, color: 'var(--text-2)', lineHeight: 1.7, margin: '14px 0 16px', fontStyle: 'italic' }}>"{r.text}"</p>
+                <div>
+                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: 'var(--text)' }}>{r.name}</p>
+                  <p style={{ fontSize: 12, color: 'var(--text-3)' }}>{r.role}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ───────────────────────────────────────────────────────────── */}
+      <section style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }} className="section-pad">
+        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+            <div className="section-eyebrow" style={{ justifyContent: 'center' }}>FAQ</div>
+            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(26px,4vw,50px)', color: 'var(--text)', letterSpacing: '-0.02em', whiteSpace: 'pre-line', lineHeight: 1.1 }}>
+              Vos questions, nos réponses
+            </h2>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {FAQS.map((item, i) => {
+              const isOpen = openIndex === i;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.06 }}
+                  style={{
+                    background: 'var(--bg-card)',
+                    border: `1px solid ${isOpen ? 'rgba(200,16,46,0.35)' : 'var(--border)'}`,
+                    borderRadius: 14,
+                    overflow: 'hidden',
+                    boxShadow: isOpen ? '0 4px 24px rgba(200,16,46,0.08)' : 'var(--shadow-sm)',
+                    transition: 'border-color 0.3s, box-shadow 0.3s',
+                  }}
+                >
+                  <button
+                    onClick={() => setOpenIndex(isOpen ? null : i)}
+                    style={{
+                      width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      padding: '20px 24px', background: 'transparent', border: 'none', cursor: 'pointer',
+                      fontFamily: F, fontWeight: 700, fontSize: 15, color: 'var(--text)',
+                      textAlign: 'left',
+                    }}
+                  >
+                    {item.q}
+                    <span style={{
+                      fontSize: 18, color: isOpen ? 'var(--red)' : 'var(--text-3)',
+                      transition: 'transform 0.3s, color 0.3s',
+                      transform: isOpen ? 'rotate(45deg)' : 'none',
+                      flexShrink: 0,
+                    }}>
+                      +
+                    </span>
+                  </button>
+                  <motion.div
+                    initial={false}
+                    animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+                    transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <p style={{ padding: '0 24px 20px', fontSize: 14, color: 'var(--text-2)', lineHeight: 1.7 }}>
+                      {item.a}
+                    </p>
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ───────────────────────────────────────────────────────────── */}
+      <section style={{ background: 'linear-gradient(135deg, #0a0a0b, #1a1a1e)', position: 'relative', overflow: 'hidden' }} className="section-pad">
+        <div style={{
+          position: 'absolute', top: '30%', right: -100, width: 400, height: 400,
+          background: 'radial-gradient(circle, rgba(200,16,46,0.1) 0%, transparent 70%)',
+          borderRadius: '50%',
+        }} />
+        <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', maxWidth: 700, margin: '0 auto' }}>
+          <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(26px,4vw,48px)', color: '#fff', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: 16 }}>
+            Prêt à être accompagné ?
+          </h2>
+          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.6)', marginBottom: 32, maxWidth: 500, margin: '0 auto 32px' }}>
+            Contactez-nous dès aujourd'hui pour un rendez-vous gratuit à votre domicile.
+          </p>
+          <Link to="/contact" className="btn-primary" style={{ fontSize: 14, padding: '16px 44px' }}>
+            Nous contacter
+          </Link>
+        </div>
+      </section>
+
+      <CookieBanner />
+    </>
+  );
+}
+
+function StepCard({ data, align }) {
+  return (
+    <div style={{
+      background: 'var(--bg-card)',
+      border: '1px solid var(--border)',
+      borderRadius: 14,
+      padding: '24px 28px',
+      boxShadow: 'var(--shadow-sm)',
+      maxWidth: 420,
+      textAlign: align,
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12, justifyContent: align === 'right' ? 'flex-end' : 'flex-start' }}>
+        <span style={{
+          fontSize: 10, fontWeight: 800, letterSpacing: '0.3em', textTransform: 'uppercase',
+          color: 'var(--red)', background: 'var(--red-bg)', border: '1px solid var(--red-border)',
+          padding: '3px 10px', borderRadius: 3,
+          order: align === 'right' ? 2 : 1,
+        }}>
+          STEP {data.step}
+        </span>
+      </div>
+      <h3 style={{ fontFamily: F, fontWeight: 800, fontSize: 18, color: 'var(--text)', marginBottom: 10 }}>
+        {data.title}
+      </h3>
+      <p style={{ fontSize: 14, color: 'var(--text-3)', lineHeight: 1.7 }}>{data.desc}</p>
+    </div>
+  );
+}
