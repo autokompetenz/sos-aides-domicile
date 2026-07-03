@@ -322,6 +322,7 @@ export default function Home() {
                   borderRadius: 14,
                   padding: isMobile ? '24px 20px' : '32px 28px',
                   boxShadow: 'var(--shadow-sm)',
+                  textAlign: 'center',
                 }}
               >
                 <div style={{
@@ -330,7 +331,7 @@ export default function Home() {
                   border: '1px solid var(--red-border)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: 'var(--red)',
-                  marginBottom: isMobile ? 14 : 18,
+                  margin: `0 auto ${isMobile ? 14 : 18}px`,
                 }}>
                   {s.icon}
                 </div>
