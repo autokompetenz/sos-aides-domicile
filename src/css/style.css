@@ -199,7 +199,7 @@ button {
 .header_section{
     width: 100%;
     float: left;
-    background-image: url(/images/banner-bg.png);
+    background-image: url(/images/banner-bg.svg);
     height: auto;
     background-size: 100%;
 }
@@ -561,7 +561,7 @@ a:hover {
 .who_section{
     width: 100%;
     float: left;
-    background-image: url(/images/bg-1.png);
+    background-image: url(/images/bg-1.svg);
     height: auto;
     padding-bottom: 55px;
     background-size: 100%;
@@ -796,7 +796,7 @@ a:hover {
 .contact_section {
     width: 100%;
     float: left;
-    background-image: url(/images/contact-bg.png);
+    background-image: url(/images/contact-bg.svg);
     height: auto;
     background-size: 100%;
     background-repeat: no-repeat;

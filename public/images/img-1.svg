@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400" fill="none">
+  <rect width="500" height="400" rx="16" fill="#fff4e0"/>
+  <!-- caregiver -->
+  <circle cx="200" cy="160" r="40" fill="#ffb607" fill-opacity=".3"/>
+  <path d="M200 120c-11 0-20 9-20 20s9 20 20 20 20-9 20-20-9-20-20-20z" fill="#ffb607"/>
+  <path d="M170 200c0-11 13-20 30-20s30 9 30 20v10H170v-10z" fill="#ffb607" fill-opacity=".5"/>
+  <rect x="160" y="210" width="80" height="60" rx="8" fill="#ffb607" fill-opacity=".15"/>
+  <rect x="165" y="250" width="70" height="50" rx="6" fill="#ffb607" fill-opacity=".1"/>
+  <!-- elderly person -->
+  <circle cx="330" cy="220" r="30" fill="#ffb607" fill-opacity=".2"/>
+  <path d="M330 195c-8 0-15 7-15 15s7 15 15 15 15-7 15-15-7-15-15-15z" fill="#ffb607" fill-opacity=".6"/>
+  <path d="M310 245c0-8 9-15 20-15s20 7 20 15v8H310v-8z" fill="#ffb607" fill-opacity=".4"/>
+  <!-- heart between them -->
+  <path d="M265 190c-3-5-9-8-15-5-6 3-8 10-5 16l5 8 5-8c3-6 1-13-5-16 6-3 12 0 15 5z" fill="#ffb607" fill-opacity=".8"/>
+  <!-- home icon -->
+  <rect x="40" y="290" width="420" height="8" rx="4" fill="#ffb607" fill-opacity=".15"/>
+  <rect x="40" y="298" width="420" height="80" rx="4" fill="#ffb607" fill-opacity=".08"/>
+  <path d="M230 300l50-40 50 40" stroke="#ffb607" stroke-width="3" fill="none" stroke-opacity=".3"/>
+  <!-- small decorative circles -->
+  <circle cx="60" cy="120" r="4" fill="#ffb607" fill-opacity=".15"/>
+  <circle cx="440" cy="100" r="6" fill="#ffb607" fill-opacity=".1"/>
+  <circle cx="450" cy="180" r="3" fill="#ffb607" fill-opacity=".2"/>
+  <circle cx="50" cy="250" r="5" fill="#ffb607" fill-opacity=".1"/>
+</svg>

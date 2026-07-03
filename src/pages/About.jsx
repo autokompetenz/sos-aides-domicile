@@ -13,7 +13,7 @@ function About() {
               </p>
             </div>
             <div className="col-md-6">
-              <div className="image_1"><img src="/images/img-1.png" alt="SOS Aides à Domicile" /></div>
+              <div className="image_1"><img src="/images/img-1.svg" alt="SOS Aides à Domicile" /></div>
             </div>
           </div>
         </div>

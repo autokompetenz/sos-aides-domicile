@@ -44,10 +44,10 @@ function Home() {
           <div className="services_section2 layout_padding">
             <div className="row">
               {[
-                { img: 'icon-1.png', title: 'Aide aux seniors', desc: 'Maintien à domicile, accompagnement, soins et assistance pour nos aînés.' },
-                { img: 'icon-2.png', title: 'Aide aux familles', desc: 'Soutien à la parentalité, garde d\'enfants et accompagnement éducatif.' },
-                { img: 'icon-3.png', title: 'Personnes handicapées', desc: 'Accompagnement personnalisé pour favoriser l\'autonomie et l\'inclusion.' },
-                { img: 'icon-4.png', title: 'Services de proximité', desc: 'Courses, petits travaux, accompagnement aux rendez-vous et sorties.' },
+                { img: 'icon-1.svg', title: 'Aide aux seniors', desc: 'Maintien à domicile, accompagnement, soins et assistance pour nos aînés.' },
+                { img: 'icon-2.svg', title: 'Aide aux familles', desc: 'Soutien à la parentalité, garde d\'enfants et accompagnement éducatif.' },
+                { img: 'icon-3.svg', title: 'Personnes handicapées', desc: 'Accompagnement personnalisé pour favoriser l\'autonomie et l\'inclusion.' },
+                { img: 'icon-4.svg', title: 'Services de proximité', desc: 'Courses, petits travaux, accompagnement aux rendez-vous et sorties.' },
               ].map((item, i) => (
                 <div className="col-lg-3 col-sm-6" key={i}>
                   <div className="icon_1"><img src={`/images/${item.img}`} alt={item.title} /></div>
@@ -75,7 +75,7 @@ function Home() {
               <div className="read_bt1"><a href="/about">En savoir +</a></div>
             </div>
             <div className="col-md-6">
-              <div className="image_1"><img src="/images/img-1.png" alt="SOS Aides à Domicile" /></div>
+              <div className="image_1"><img src="/images/img-1.svg" alt="SOS Aides à Domicile" /></div>
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@ function Home() {
                   <div className="client_1">
                     <div className="row">
                       <div className="col-sm-3">
-                        <div className="image_7"><img src="/images/img-7.png" alt="Marie" /></div>
+                        <div className="image_7"><img src="/images/img-7.svg" alt="Marie" /></div>
                       </div>
                       <div className="col-sm-9">
                         <h1 className="loksans_text">Marie L.</h1>
@@ -122,7 +122,7 @@ function Home() {
                   <div className="client_2">
                     <div className="row">
                       <div className="col-sm-3">
-                        <div className="image_7"><img src="/images/img-8.png" alt="Jean" /></div>
+                        <div className="image_7"><img src="/images/img-8.svg" alt="Jean" /></div>
                       </div>
                       <div className="col-sm-9">
                         <h1 className="loksans_text">Jean-Pierre D.</h1>
