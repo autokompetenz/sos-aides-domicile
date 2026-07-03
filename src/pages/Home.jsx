@@ -169,14 +169,27 @@ export default function Home() {
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <motion.section style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #0a0a0b 0%, #1a1a1e 100%)',
         position: 'relative',
         overflow: 'hidden',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
       }}>
+        {/* Background image */}
         <motion.div style={{ opacity: heroOpacity, scale: heroScale, position: 'absolute', inset: 0 }}>
+          <img
+            src="https://images.unsplash.com/photo-1581579438744-1049ced4d84e?q=80&w=2070&auto=format&fit=crop"
+            alt=""
+            style={{
+              width: '100%', height: '100%',
+              objectFit: 'cover',
+              objectPosition: isMobile ? '30% center' : 'center center',
+            }}
+          />
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.7) 100%)',
+          }} />
           <div style={{
             position: 'absolute', top: '20%', right: -80, width: 500, height: 500,
             background: 'radial-gradient(circle, rgba(200,16,46,0.15) 0%, transparent 70%)',
@@ -193,7 +206,7 @@ export default function Home() {
           position: 'relative', zIndex: 2,
           textAlign: 'center',
           maxWidth: 820,
-          padding: isMobile ? '0 6%' : '0 5%',
+          padding: isMobile ? '80px 6% 60px' : '0 5%',
         }}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -202,11 +215,11 @@ export default function Home() {
           >
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.1)',
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.15)',
               borderRadius: 100,
               padding: '6px 16px 6px 6px',
-              marginBottom: 28,
+              marginBottom: isMobile ? 24 : 28,
             }}>
               <span style={{
                 background: 'var(--red)',
@@ -226,11 +239,11 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.1 }}
             style={{
               fontFamily: F, fontWeight: 900,
-              fontSize: isMobile ? 'clamp(36px, 10vw, 52px)' : 'clamp(48px, 5.5vw, 76px)',
+              fontSize: isMobile ? 'clamp(32px, 9vw, 44px)' : 'clamp(48px, 5.5vw, 76px)',
               color: '#fff',
-              lineHeight: 1.05,
+              lineHeight: 1.08,
               letterSpacing: '-0.03em',
-              marginBottom: 20,
+              marginBottom: isMobile ? 16 : 20,
             }}
           >
             Des services à domicile<br />
@@ -248,11 +261,11 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{
-              fontSize: isMobile ? 17 : 20,
-              color: 'rgba(255,255,255,0.65)',
-              lineHeight: 1.6,
+              fontSize: isMobile ? 16 : 20,
+              color: 'rgba(255,255,255,0.7)',
+              lineHeight: 1.65,
               maxWidth: 600,
-              margin: '0 auto 36px',
+              margin: '0 auto 32px',
               fontFamily: F,
             }}
           >
@@ -264,15 +277,23 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}
+            style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}
           >
-            <a href="tel:+33556781234" className="btn-primary" style={{ fontSize: 14, padding: '16px 36px' }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: 8, verticalAlign: 'middle' }}>
+            <a href="tel:+33556781234" className="btn-primary" style={{
+              fontSize: isMobile ? 13 : 14,
+              padding: isMobile ? '14px 28px' : '16px 36px',
+            }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: 6, verticalAlign: 'middle' }}>
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
               </svg>
               05 56 78 12 34
             </a>
-            <a href="/contact" className="btn-secondary" style={{ fontSize: 14, padding: '16px 36px' }}>
+            <a href="/contact" className="btn-secondary" style={{
+              fontSize: isMobile ? 13 : 14,
+              padding: isMobile ? '14px 28px' : '16px 36px',
+              borderColor: 'rgba(255,255,255,0.25)',
+              color: '#fff',
+            }}>
               Demander un devis
             </a>
           </motion.div>
@@ -282,12 +303,12 @@ export default function Home() {
       {/* ── SERVICES ──────────────────────────────────────────────────────── */}
       <section style={{ background: 'var(--bg-card2)', borderTop: '1px solid var(--border)' }} className="section-pad">
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <div style={{ textAlign: 'center', marginBottom: isMobile ? 40 : 56 }}>
             <div className="section-eyebrow" style={{ justifyContent: 'center' }}>Nos Services</div>
-            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(28px,4vw,52px)', color: 'var(--text)', letterSpacing: '-0.02em' }}>
+            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(26px,4vw,52px)', color: 'var(--text)', letterSpacing: '-0.02em' }}>
               Un accompagnement sur mesure
             </h2>
-            <p style={{ fontSize: 16, color: 'var(--text-3)', marginTop: 12, maxWidth: 560, margin: '12px auto 0' }}>
+            <p style={{ fontSize: isMobile ? 15 : 16, color: 'var(--text-3)', marginTop: 12, maxWidth: 560, margin: '12px auto 0', padding: isMobile ? '0 4%' : 0 }}>
               Du soutien quotidien aux soins spécialisés, nous nous adaptons à vos besoins.
             </p>
           </div>
@@ -295,7 +316,7 @@ export default function Home() {
           <div style={{
             display: 'grid',
             gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-            gap: 24,
+            gap: isMobile ? 16 : 24,
           }}>
             {SERVICES.map((s, i) => (
               <motion.div
@@ -308,24 +329,24 @@ export default function Home() {
                   background: 'var(--bg-card)',
                   border: '1px solid var(--border)',
                   borderRadius: 14,
-                  padding: '32px 28px',
+                  padding: isMobile ? '24px 20px' : '32px 28px',
                   boxShadow: 'var(--shadow-sm)',
                 }}
               >
                 <div style={{
-                  width: 52, height: 52, borderRadius: 12,
+                  width: isMobile ? 44 : 52, height: isMobile ? 44 : 52, borderRadius: 12,
                   background: 'var(--red-bg)',
                   border: '1px solid var(--red-border)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: 'var(--red)',
-                  marginBottom: 18,
+                  marginBottom: isMobile ? 14 : 18,
                 }}>
                   {s.icon}
                 </div>
-                <h3 style={{ fontFamily: F, fontWeight: 800, fontSize: 17, color: 'var(--text)', marginBottom: 10 }}>
+                <h3 style={{ fontFamily: F, fontWeight: 800, fontSize: isMobile ? 15 : 17, color: 'var(--text)', marginBottom: 8 }}>
                   {s.title}
                 </h3>
-                <p style={{ fontSize: 14, color: 'var(--text-3)', lineHeight: 1.7 }}>
+                <p style={{ fontSize: isMobile ? 13 : 14, color: 'var(--text-3)', lineHeight: 1.7 }}>
                   {s.desc}
                 </p>
               </motion.div>
@@ -337,12 +358,12 @@ export default function Home() {
       {/* ── STEPS — Comment ça marche ─────────────────────────────────────── */}
       <section style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }} className="section-pad">
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <div style={{ textAlign: 'center', marginBottom: isMobile ? 40 : 56 }}>
             <div className="section-eyebrow" style={{ justifyContent: 'center' }}>Comment ça marche</div>
-            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(28px,4vw,52px)', color: 'var(--text)', letterSpacing: '-0.02em', whiteSpace: 'pre-line' }}>
+            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(26px,4vw,52px)', color: 'var(--text)', letterSpacing: '-0.02em', whiteSpace: 'pre-line' }}>
               De la demande au suivi
             </h2>
-            <p style={{ fontSize: 16, color: 'var(--text-3)', marginTop: 12, maxWidth: 560, margin: '12px auto 0' }}>
+            <p style={{ fontSize: isMobile ? 15 : 16, color: 'var(--text-3)', marginTop: 12, maxWidth: 560, margin: '12px auto 0', padding: isMobile ? '0 4%' : 0 }}>
               Un processus simple et transparent, du premier contact jusqu'au suivi personnalisé.
             </p>
           </div>
@@ -377,8 +398,8 @@ export default function Home() {
               })}
             </div>
           ) : (
-            <div style={{ position: 'relative', paddingLeft: 52 }}>
-              <div style={{ position: 'absolute', left: 20, top: 8, bottom: 8, width: 2, background: 'linear-gradient(to bottom, rgba(200,16,46,0.08), rgba(200,16,46,0.4), rgba(200,16,46,0.08))' }} />
+            <div style={{ position: 'relative', paddingLeft: 44 }}>
+              <div style={{ position: 'absolute', left: 16, top: 8, bottom: 8, width: 2, background: 'linear-gradient(to bottom, rgba(200,16,46,0.08), rgba(200,16,46,0.4), rgba(200,16,46,0.08))' }} />
               {STEPS.map((s, i) => (
                 <motion.div
                   key={i}
@@ -386,17 +407,25 @@ export default function Home() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
-                  style={{ position: 'relative', marginBottom: i < STEPS.length - 1 ? 28 : 0 }}
+                  style={{ position: 'relative', marginBottom: i < STEPS.length - 1 ? 24 : 0 }}
                 >
-                  <div style={{ position: 'absolute', left: -42, top: 16, width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #9B0B22, #C8102E)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, boxShadow: '0 0 0 4px var(--bg), 0 0 0 6px rgba(200,16,46,0.15)', zIndex: 2 }}>
+                  <div style={{
+                    position: 'absolute', left: -34, top: 14,
+                    width: 32, height: 32, borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #9B0B22, #C8102E)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 14,
+                    boxShadow: '0 0 0 4px var(--bg), 0 0 0 6px rgba(200,16,46,0.15)',
+                    zIndex: 2,
+                  }}>
                     {s.icon}
                   </div>
-                  <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 12, padding: '18px 20px', boxShadow: 'var(--shadow-sm)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                      <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.25em', color: 'var(--red)', background: 'var(--red-bg)', border: '1px solid var(--red-border)', padding: '2px 8px', borderRadius: 3 }}>
+                  <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 12, padding: '16px 18px', boxShadow: 'var(--shadow-sm)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, flexWrap: 'wrap' }}>
+                      <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: '0.25em', color: 'var(--red)', background: 'var(--red-bg)', border: '1px solid var(--red-border)', padding: '2px 8px', borderRadius: 3 }}>
                         {s.step}
                       </span>
-                      <h3 style={{ fontFamily: F, fontWeight: 800, fontSize: 15, color: 'var(--text)' }}>{s.title}</h3>
+                      <h3 style={{ fontFamily: F, fontWeight: 800, fontSize: 14, color: 'var(--text)' }}>{s.title}</h3>
                     </div>
                     <p style={{ fontSize: 13, color: 'var(--text-3)', lineHeight: 1.65 }}>{s.desc}</p>
                   </div>
@@ -408,8 +437,8 @@ export default function Home() {
       </section>
 
       {/* ── STATS ─────────────────────────────────────────────────────────── */}
-      <section style={{ background: 'linear-gradient(135deg, #0a0a0b, #1a1a1e)', padding: '80px 5%' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)', gap: 32, textAlign: 'center' }}>
+      <section style={{ background: 'linear-gradient(135deg, #0a0a0b, #1a1a1e)', padding: isMobile ? '60px 5%' : '80px 5%' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)', gap: isMobile ? 24 : 32, textAlign: 'center' }}>
           {[
             { n: '15+', l: "Années d'expérience" },
             { n: '500+', l: 'Familles accompagnées' },
@@ -423,8 +452,8 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <p style={{ fontFamily: F, fontSize: 42, fontWeight: 900, color: '#fff', marginBottom: 6 }}>{s.n}</p>
-              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>{s.l}</p>
+              <p style={{ fontFamily: F, fontSize: isMobile ? 34 : 42, fontWeight: 900, color: '#fff', marginBottom: 4 }}>{s.n}</p>
+              <p style={{ fontSize: isMobile ? 12 : 13, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>{s.l}</p>
             </motion.div>
           ))}
         </div>
@@ -433,13 +462,13 @@ export default function Home() {
       {/* ── REVIEWS ───────────────────────────────────────────────────────── */}
       <section style={{ background: 'var(--bg-card2)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }} className="section-pad">
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <div style={{ textAlign: 'center', marginBottom: isMobile ? 32 : 48 }}>
             <div className="section-eyebrow" style={{ justifyContent: 'center' }}>Témoignages</div>
-            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(26px,4vw,50px)', color: 'var(--text)', letterSpacing: '-0.02em' }}>
+            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(24px,4vw,50px)', color: 'var(--text)', letterSpacing: '-0.02em' }}>
               Ce que disent nos clients
             </h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 24 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 16 : 24 }}>
             {REVIEWS.map((r, i) => (
               <motion.div
                 key={i}
@@ -451,14 +480,14 @@ export default function Home() {
                   background: 'var(--bg-card)',
                   border: '1px solid var(--border)',
                   borderRadius: 14,
-                  padding: '28px',
+                  padding: isMobile ? '20px' : '28px',
                   boxShadow: 'var(--shadow-sm)',
                 }}
               >
                 <Stars n={r.rating} />
-                <p style={{ fontSize: 14, color: 'var(--text-2)', lineHeight: 1.7, margin: '14px 0 16px', fontStyle: 'italic' }}>"{r.text}"</p>
+                <p style={{ fontSize: isMobile ? 13 : 14, color: 'var(--text-2)', lineHeight: 1.7, margin: '12px 0 14px', fontStyle: 'italic' }}>"{r.text}"</p>
                 <div>
-                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: 'var(--text)' }}>{r.name}</p>
+                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 14, color: 'var(--text)' }}>{r.name}</p>
                   <p style={{ fontSize: 12, color: 'var(--text-3)' }}>{r.role}</p>
                 </div>
               </motion.div>
@@ -470,13 +499,13 @@ export default function Home() {
       {/* ── FAQ ───────────────────────────────────────────────────────────── */}
       <section style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }} className="section-pad">
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <div style={{ textAlign: 'center', marginBottom: isMobile ? 32 : 48 }}>
             <div className="section-eyebrow" style={{ justifyContent: 'center' }}>FAQ</div>
-            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(26px,4vw,50px)', color: 'var(--text)', letterSpacing: '-0.02em', whiteSpace: 'pre-line', lineHeight: 1.1 }}>
+            <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(24px,4vw,50px)', color: 'var(--text)', letterSpacing: '-0.02em', whiteSpace: 'pre-line', lineHeight: 1.1 }}>
               Vos questions, nos réponses
             </h2>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {FAQS.map((item, i) => {
               const isOpen = openIndex === i;
               return (
@@ -499,9 +528,10 @@ export default function Home() {
                     onClick={() => setOpenIndex(isOpen ? null : i)}
                     style={{
                       width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                      padding: '20px 24px', background: 'transparent', border: 'none', cursor: 'pointer',
-                      fontFamily: F, fontWeight: 700, fontSize: 15, color: 'var(--text)',
-                      textAlign: 'left',
+                      padding: isMobile ? '16px 18px' : '20px 24px',
+                      background: 'transparent', border: 'none', cursor: 'pointer',
+                      fontFamily: F, fontWeight: 700, fontSize: isMobile ? 14 : 15, color: 'var(--text)',
+                      textAlign: 'left', gap: 12,
                     }}
                   >
                     {item.q}
@@ -520,7 +550,7 @@ export default function Home() {
                     transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                     style={{ overflow: 'hidden' }}
                   >
-                    <p style={{ padding: '0 24px 20px', fontSize: 14, color: 'var(--text-2)', lineHeight: 1.7 }}>
+                    <p style={{ padding: isMobile ? '0 18px 16px' : '0 24px 20px', fontSize: isMobile ? 13 : 14, color: 'var(--text-2)', lineHeight: 1.7 }}>
                       {item.a}
                     </p>
                   </motion.div>
@@ -539,13 +569,13 @@ export default function Home() {
           borderRadius: '50%',
         }} />
         <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', maxWidth: 700, margin: '0 auto' }}>
-          <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(26px,4vw,48px)', color: '#fff', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: 16 }}>
+          <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: 'clamp(24px,4vw,48px)', color: '#fff', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: 14 }}>
             Prêt à être accompagné ?
           </h2>
-          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.6)', marginBottom: 32, maxWidth: 500, margin: '0 auto 32px' }}>
+          <p style={{ fontSize: isMobile ? 15 : 16, color: 'rgba(255,255,255,0.6)', marginBottom: 28, maxWidth: 500, margin: '0 auto 28px' }}>
             Contactez-nous dès aujourd'hui pour un rendez-vous gratuit à votre domicile.
           </p>
-          <Link to="/contact" className="btn-primary" style={{ fontSize: 14, padding: '16px 44px' }}>
+          <Link to="/contact" className="btn-primary" style={{ fontSize: isMobile ? 13 : 14, padding: isMobile ? '14px 36px' : '16px 44px' }}>
             Nous contacter
           </Link>
         </div>
