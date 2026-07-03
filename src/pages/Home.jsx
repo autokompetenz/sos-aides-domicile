@@ -178,7 +178,7 @@ export default function Home() {
         {/* Background image */}
         <motion.div style={{ opacity: heroOpacity, scale: heroScale, position: 'absolute', inset: 0 }}>
           <img
-            src="https://images.unsplash.com/photo-1581579438744-1049ced4d84e?q=80&w=2070&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=2070&auto=format&fit=crop"
             alt=""
             style={{
               width: '100%', height: '100%',

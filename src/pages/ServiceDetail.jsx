@@ -151,7 +151,7 @@ const SERVICE_IMAGES = {
   'aide-aux-personnes-handicapees': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop',
   'aide-administrative': 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop',
   'accompagnement-social': 'https://images.unsplash.com/photo-1544027993-37dbfe43562a?q=80&w=2070&auto=format&fit=crop',
-  'entretien-cadre-de-vie': 'https://images.unsplash.com/photo-1581579438744-1049ced4d84e?q=80&w=2070&auto=format&fit=crop',
+  'entretien-cadre-de-vie': 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=2070&auto=format&fit=crop',
 };
 
 export default function ServiceDetail() {
