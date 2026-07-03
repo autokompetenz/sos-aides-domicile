@@ -102,41 +102,53 @@ export default function Services() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: 24 }}>
-          {SERVICES.map((s, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.05 }}
-              style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border)',
-                borderRadius: 14,
-                padding: '32px',
-                boxShadow: 'var(--shadow-sm)',
-              }}
-            >
-              <p style={{ fontSize: 36, marginBottom: 12 }}>{s.icon}</p>
-              <h2 style={{ fontFamily: F, fontWeight: 800, fontSize: 18, color: 'var(--text)', marginBottom: 4 }}>{s.title}</h2>
-              <p style={{ fontSize: 13, color: 'var(--red)', fontWeight: 600, marginBottom: 16 }}>{s.subtitle}</p>
-              <ul style={{ padding: 0, margin: 0, listStyle: 'none' }}>
-                {s.items.map((item, j) => (
-                  <li key={j} style={{
-                    padding: '8px 0',
-                    borderBottom: j < s.items.length - 1 ? '1px solid var(--border)' : 'none',
-                    fontSize: 14,
-                    color: 'var(--text-2)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 10,
-                  }}>
-                    <span style={{ color: 'var(--red)', fontSize: 14 }}>✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+          {SERVICES.map((s, i) => {
+            const slug = s.title.toLowerCase()
+              .replace(/[àâä]/g, 'a').replace(/[éèêë]/g, 'e').replace(/[îï]/g, 'i').replace(/[ôö]/g, 'o').replace(/[ùûü]/g, 'u')
+              .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            return (
+              <Link key={i} to={`/services/${slug}`} style={{ textDecoration: 'none' }}>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                  style={{
+                    background: 'var(--bg-card)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 14,
+                    padding: '32px',
+                    boxShadow: 'var(--shadow-sm)',
+                    cursor: 'pointer',
+                    transition: 'border-color 0.2s, transform 0.2s',
+                    height: '100%',
+                  }}
+                  onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--red)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
+                  onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'none'; }}
+                >
+                  <p style={{ fontSize: 36, marginBottom: 12 }}>{s.icon}</p>
+                  <h2 style={{ fontFamily: F, fontWeight: 800, fontSize: 18, color: 'var(--text)', marginBottom: 4 }}>{s.title}</h2>
+                  <p style={{ fontSize: 13, color: 'var(--red)', fontWeight: 600, marginBottom: 16 }}>{s.subtitle}</p>
+                  <ul style={{ padding: 0, margin: 0, listStyle: 'none' }}>
+                    {s.items.map((item, j) => (
+                      <li key={j} style={{
+                        padding: '8px 0',
+                        borderBottom: j < s.items.length - 1 ? '1px solid var(--border)' : 'none',
+                        fontSize: 14,
+                        color: 'var(--text-2)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 10,
+                      }}>
+                        <span style={{ color: 'var(--red)', fontSize: 14 }}>✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <p style={{ fontSize: 12, color: 'var(--red)', fontWeight: 600, marginTop: 16, textAlign: 'right' }}>En savoir plus →</p>
+                </motion.div>
+              </Link>
+            );
+          })}
         </div>
 
         {/* CTA */}

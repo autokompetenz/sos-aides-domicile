@@ -3,11 +3,12 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Toast from './components/Toast';
 
-import Home     from './pages/Home';
-import Services from './pages/Services';
-import APropos  from './pages/APropos';
-import Contact  from './pages/Contact';
-import Legal    from './pages/Legal';
+import Home          from './pages/Home';
+import Services      from './pages/Services';
+import ServiceDetail from './pages/ServiceDetail';
+import APropos       from './pages/APropos';
+import Contact       from './pages/Contact';
+import Legal         from './pages/Legal';
 
 export default function App() {
   function MainLayout({ children }) {
@@ -26,6 +27,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<MainLayout><Home /></MainLayout>} />
         <Route path="/services" element={<MainLayout><Services /></MainLayout>} />
+        <Route path="/services/:slug" element={<MainLayout><ServiceDetail /></MainLayout>} />
         <Route path="/a-propos" element={<MainLayout><APropos /></MainLayout>} />
         <Route path="/contact" element={<MainLayout><Contact /></MainLayout>} />
         <Route path="/mentions-legales" element={<MainLayout><Legal /></MainLayout>} />
